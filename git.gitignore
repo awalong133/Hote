@@ -1,0 +1,38 @@
+# 系统
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+.eide/
+out/
+build/
+
+# Keil
+MDK-ARM/Objects/
+MDK-ARM/Listings/
+*.uvoptx
+*.uvguix
+*.Administrator
+*.Jenifer
+
+# 编译产物
+*.o
+*.d
+*.elf
+*.hex
+*.bin
+*.axf
+*.map
+*.a
+*.lib
+*.dep
+
+# 其他
+*.log
+*.zip
+*.rar
+*.7z
+*.bat

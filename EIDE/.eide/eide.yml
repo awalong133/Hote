@@ -1,0 +1,102 @@
+version: "4.1"
+name: Hote
+type: ARM
+deviceName: null
+packDir: .pack/Puya/PY32F0xx_DFP.1.2.15
+srcDirs: []
+virtualFolder:
+  name: <virtual_root>
+  files:
+    - path: libHote_Py32F0.a
+  folders:
+    - name: Common
+      files:
+        - path: startup_py32f002bxx.s
+      folders: []
+    - name: Doc
+      files:
+        - path: ../readme.txt
+      folders: []
+    - name: Src
+      files:
+        - path: ../Src/main.c
+        - path: ../Src/ExtDevice/Mpu6050.c
+        - path: ../Src/ExtDevice/Lcd/LCD_St7789.c
+      folders: []
+dependenceList: []
+outDir: .
+miscInfo:
+  uid: 36bcf0031e18a3008bbdaa90a96a7987
+targets:
+  Project:
+    cppPreprocessAttrs:
+      defineList:
+        - PY32F002Bx5
+      incList:
+        - .
+        - ../Inc
+        - ../Src
+        - ../Src/ExtDevice
+        - ../Src/ExtDevice/Lcd
+      libList: []
+    excludeList: []
+    settings:
+      debugger: cortex-debug
+    toolchain: GCC
+    toolchainConfigMap:
+      GCC:
+        archExtensions: ""
+        cpuType: Cortex-M0+
+        floatingPointHardware: none
+        options:
+          version: 5
+          afterBuildTasks: []
+          asm-compiler:
+            ASM_FLAGS: ""
+          beforeBuildTasks: []
+          c/cpp-compiler:
+            CXX_FLAGS: ""
+            C_FLAGS: ""
+            language-c: c11
+            language-cpp: c++11
+            one-elf-section-per-data: true
+            one-elf-section-per-function: true
+            optimization: level-debug
+            warnings: all-warnings
+          global:
+            $float-abi-type: softfp
+            misc-control: --specs=nosys.specs --specs=nano.specs
+            output-debug-info: enable
+          linker:
+            LD_FLAGS: " "
+            LIB_FLAGS: -lm
+            output-format: elf
+            remove-unused-input-sections: true
+        scatterFilePath: py32f002bx5.ld
+        storageLayout:
+          RAM: []
+          ROM: []
+        useCustomScatterFile: true
+    uploadConfigMap:
+      JLink:
+        baseAddr: ""
+        bin: ""
+        cpuInfo:
+          cpuName: PY32F002Bx5
+          vendor: Puya
+        otherCmds: ""
+        proType: 1
+        speed: 1000
+      OpenOCD:
+        baseAddr: "0x08000000"
+        bin: ""
+        interface: cmsis-dap
+        target: py32f002b
+      pyOCD:
+        baseAddr: "0x08000000"
+        bin: ""
+        config: .eide/project.pyocd.yaml
+        otherCmds: '"--pack=${env:PYSDEPATH}\packs\PY32F0xx_DFP.pack"'
+        speed: 4M
+        targetName: PY32F002Bx5
+    uploader: pyOCD
