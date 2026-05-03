@@ -439,9 +439,9 @@
           <GroupName>Doc</GroupName>
           <Files>
             <File>
-              <FileName>readme.txt</FileName>
+              <FileName>readme.md</FileName>
               <FileType>5</FileType>
-              <FilePath>..\readme.txt</FilePath>
+              <FilePath>..\readme.md</FilePath>
             </File>
           </Files>
         </Group>

@@ -15,7 +15,7 @@ virtualFolder:
       folders: []
     - name: Doc
       files:
-        - path: ../readme.txt
+        - path: ../readme.md
       folders: []
     - name: Src
       files:
