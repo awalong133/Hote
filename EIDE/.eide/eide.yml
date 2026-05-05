@@ -2,16 +2,16 @@ version: "4.1"
 name: Hote
 type: ARM
 deviceName: null
-packDir: .pack/Puya/PY32F0xx_DFP.1.2.15
+packDir: null
 srcDirs: []
 virtualFolder:
   name: <virtual_root>
   files:
-    - path: libHote_Py32F0.a
+    - path: ../MDK-ARM/Hote_Py32F0.lib
   folders:
     - name: Common
       files:
-        - path: startup_py32f002bxx.s
+        - path: ../MDK-ARM/startup_py32f002bxx.s
       folders: []
     - name: Doc
       files:
@@ -24,7 +24,7 @@ virtualFolder:
         - path: ../Src/ExtDevice/Lcd/LCD_St7789.c
       folders: []
 dependenceList: []
-outDir: .
+outDir: OutPut
 miscInfo:
   uid: 36bcf0031e18a3008bbdaa90a96a7987
 targets:
@@ -42,8 +42,49 @@ targets:
     excludeList: []
     settings:
       debugger: cortex-debug
-    toolchain: GCC
+    toolchain: AC5
     toolchainConfigMap:
+      AC5:
+        archExtensions: ""
+        cpuType: Cortex-M0+
+        floatingPointHardware: none
+        options:
+          version: 4
+          afterBuildTasks: []
+          asm-compiler: {}
+          beforeBuildTasks: []
+          c/cpp-compiler:
+            CXX_FLAGS: --diag_suppress=1 --diag_suppress=1295
+            C_FLAGS: --diag_suppress=1 --diag_suppress=1295
+            c99-mode: true
+            one-elf-section-per-function: true
+            optimization: level-0
+          global:
+            output-debug-info: enable
+            use-microLIB: false
+          linker:
+            $outputTaskExcludes:
+              - .bin
+            output-format: elf
+        scatterFilePath: <YOUR_SCATTER_FILE>.sct
+        storageLayout:
+          RAM:
+            - id: 1
+              isChecked: true
+              mem:
+                size: "0x5000"
+                startAddr: "0x20000000"
+              noInit: false
+              tag: IRAM
+          ROM:
+            - id: 1
+              isChecked: true
+              isStartup: true
+              mem:
+                size: "0x10000"
+                startAddr: "0x08000000"
+              tag: IROM
+        useCustomScatterFile: false
       GCC:
         archExtensions: ""
         cpuType: Cortex-M0+

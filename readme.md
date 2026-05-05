@@ -10,6 +10,7 @@ chip brands and models, it is necessary to develop them from scratch.
 Enable people with a foundation in C/C++language (including primary and secondary school students) 
 to get started in 30 minutes, and after thoroughly reviewing chip information and 
 schematic pin definitions, It takes one hour to develop the corresponding embedded software.
+
 Hote是一个跨芯片的开发套件，一份写好的代码，换不同品牌型号芯片只需改引脚重新编译即可运行；
 嵌入式芯片MCU有很多种品牌型号，功能、SDK驱动接口都不同，互不兼容，换芯片要重新开发。
 Hote遵从极简主义、极少代码、一次开发；避免换芯片品牌型号需要从头开发一次。
@@ -58,11 +59,11 @@ How to replace the chip in the kit and select it?
 	#define STM32F4  #define PY32F0  #define AT32F4
 二、
 	VSCode EIDE: Replace (delete original and add corresponding library) 
-		Hote_Stm32F4.a  Hote_At32F4.a  Hote_Py32F0.a ;
+		Hote_Stm32F4xx.lib  Hote_At32F4xx.lib  Hote_Py32F0.lib ;
 	Keil: Replace (delete original and add corresponding library) 
-		Hote_Stm32F4.lib  Hote_At32F4.lib  Hote_Py32F0.lib ;
-	在VSCode EIDE里更换(删除原有再添加对应的库) Hote_Stm32F4.a  Hote_At32F4.a  Hote_Py32F0.a ；
-	在Keil里更换(删除原有再添加对应的库) Hote_Stm32F4.lib  Hote_At32F4.lib  Hote_Py32F0.lib ；
+		Hote_Stm32F4xx.lib  Hote_At32F4xx.lib  Hote_Py32F0.lib ;
+	在VSCode EIDE里更换(删除原有再添加对应的库) Hote_Stm32F4xx.lib  Hote_At32F4xx.lib  Hote_Py32F0.lib ；
+	在Keil里更换(删除原有再添加对应的库) Hote_Stm32F4xx.lib  Hote_At32F4xx.lib  Hote_Py32F0.lib ；
 
 
 If any problems are found, you can submit bug details, which may require physical board testing;
@@ -86,5 +87,5 @@ of minimalism, minimal code, and one-time development.
 
 
 
-
+For learning only
 Copyright©2020-2030 Hote All Rights Reserved.

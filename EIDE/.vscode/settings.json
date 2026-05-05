@@ -1,1 +1,4 @@
-{}
+{
+    "EIDE.ARM.ARMCC5.InstallDirectory": "c:\\Keil_v5\\ARM\\ARMCC",
+    "EIDE.ARM.ARMCC6.InstallDirectory": "C:\\Keil_v5\\ARM\\ARMCLANG"
+}
