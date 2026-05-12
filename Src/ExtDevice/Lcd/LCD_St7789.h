@@ -35,6 +35,8 @@ void LCD_DrawCircle(uint16_t x0,uint16_t y0,uint8_t r,uint16_t color);
 //显示字符串；参数：x,y显示坐标，*p 要显示的字符串，fc 字的颜色，bc 字的背景色，sizey 字号，mode:  0非叠加模式  1叠加模式
 void LCD_ShowString(uint16_t x,uint16_t y,const uint8_t *p,uint16_t fc,uint16_t bc,uint8_t sizey,uint8_t mode);
 
+//显示图片；参数：x,y显示坐标，宽度，高度，图片
+void LCD_ShowImage(uint16_t x, uint16_t y, uint16_t width, uint16_t height, const uint8_t *image);
 
 
 #endif
