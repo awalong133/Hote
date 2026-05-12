@@ -24,6 +24,7 @@
 
 #define PY32F0
 #ifdef AT32F4
+	#pragma comment(lib, "Hote_At32F4.lib")
 	//引脚选择 并 转换成通用io编号
 	#define IO_TX	PortPin2IO(IO_PORT_A,IO_PIN_9)
 	#define IO_RX	PortPin2IO(IO_PORT_A,IO_PIN_10)
@@ -59,22 +60,30 @@
 	
 	#define IO_I2C_SCL			PortPin2IO(IO_PORT_B,IO_PIN_6)
 	#define IO_I2C_SDA			PortPin2IO(IO_PORT_B,IO_PIN_7)
-	#define I2C_SCL_CHANNEL 	DMA1_STREAM4
-	#define I2C_SDA_CHANNEL 	DMA1_STREAM5
+	#define I2C_SCL_DMA 		DMA1_STREAM4
+	#define I2C_SCL_DMA_CH		_CHANNEL_NON
+	#define I2C_SDA_DMA 		DMA1_STREAM5
+	#define I2C_SDA_DMA_CH		_CHANNEL_NON
 	#define IO_I2C_SCL2			PortPin2IO(IO_PORT_B,IO_PIN_10)
 	#define IO_I2C_SDA2			PortPin2IO(IO_PORT_B,IO_PIN_11)
-	#define I2C_SCL2_CHANNEL 	DMA1_STREAM2
-	#define I2C_SDA2_CHANNEL 	DMA1_STREAM3
+	#define I2C_SCL2_DMA 		DMA1_STREAM2
+	#define I2C_SCL2_DMA_CH		_CHANNEL_NON
+	#define I2C_SDA2_DMA 		DMA1_STREAM3
+	#define I2C_SDA2_DMA_CH		_CHANNEL_NON
 	
 	#define LCD_SPI_IDX	_IDX2
-	#define IO_SPI_SCK	PortPin2IO(IO_PORT_B,IO_PIN_13)
-	#define IO_SPI_MOSI	PortPin2IO(IO_PORT_B,IO_PIN_15)
-	#define IO_SPI_MISO	PortPin2IO(IO_PORT_B,IO_PIN_14)
-	#define IO_SPI_CS	PortPin2IO(IO_PORT_B,IO_PIN_12)//NSS 片选
-	#define IO_SPI_DC	PortPin2IO(IO_PORT_C,IO_PIN_4) //命令/数据
-	#define IO_SPI_RST	PortPin2IO(IO_PORT_C,IO_PIN_5) //复位
-	#define IO_LCD_BLK  PortPin2IO(IO_PORT_A,IO_PIN_8) //
-	#define IO_FONT_CS	PortPin2IO(IO_PORT_B,IO_PIN_1)
+	#define IO_SPI_SCK		PortPin2IO(IO_PORT_B,IO_PIN_13)
+	#define IO_SPI_MOSI		PortPin2IO(IO_PORT_B,IO_PIN_15)
+	#define IO_SPI_MISO		PortPin2IO(IO_PORT_B,IO_PIN_14)
+	#define IO_SPI_CS		PortPin2IO(IO_PORT_B,IO_PIN_12)//NSS 片选
+	#define IO_SPI_DC		PortPin2IO(IO_PORT_C,IO_PIN_4) //命令/数据
+	#define IO_SPI_RST		PortPin2IO(IO_PORT_C,IO_PIN_5) //复位
+	#define IO_LCD_BLK  	PortPin2IO(IO_PORT_A,IO_PIN_8) //
+	#define IO_FONT_CS		PortPin2IO(IO_PORT_B,IO_PIN_1)
+	#define SPI_DMA_TX 		DMA2_STREAM3
+	#define SPI_DMA_TX_CH	_CHANNEL3
+	#define SPI_DMA_RX		DMA2_STREAM2
+	#define SPI_DMA_RX_CH	_CHANNEL3
 
 	
 	#define IO_I2S_CK_MCLK	0      // 主时钟 通常不用 不输出
@@ -93,6 +102,7 @@
 	#define FLASH_SIZE	0x100000
 
 #elif defined(STM32F4)
+	#pragma comment(lib, "Hote_Stm32F4.lib")
 	//引脚选择 并 转换成通用io编号
 	#define _UARTx	1
 	#if (_UARTx==1)
@@ -108,9 +118,9 @@
 
 	#define IO_KEY1			PortPin2IO(IO_PORT_C,IO_PIN_6)
 	#define IO_KEY1_PULL	IO_PULLUP	//初始化配置上下拉
-	#define IO_KEY2			PortPin2IO(IO_PORT_A,IO_PIN_7)
+	#define IO_KEY2			PortPin2IO(IO_PORT_A,IO_PIN_8)
 	#define IO_KEY2_PULL	IO_PULLUP	//初始化配置上下拉
-	#define IO_LED			PortPin2IO(IO_PORT_C,IO_PIN_8)
+	#define IO_LED			PortPin2IO(IO_PORT_C,IO_PIN_5)
 	#define IO_LED_PULL		IO_PULLUP	//初始化配置上下拉
 	
 	#define IO_PWM1	PortPin2IO(IO_PORT_C,IO_PIN_7)	//TIM3 CH2
@@ -123,31 +133,40 @@
 	#define IO_ADC1	PortPin2IO(IO_PORT_A,IO_PIN_3)	//ADC1 CH3
 	#define ADC1_IDX _IDX1		// ADC1 / ADC2 / ADC3...
 	#define ADC1_CHANNEL _CHANNEL3
-	#define IO_ADC2	PortPin2IO(IO_PORT_A,IO_PIN_5)	//ADC1 CH5
+	#define IO_ADC2	PortPin2IO(IO_PORT_A,IO_PIN_2)	//ADC1 CH2
 	#define ADC2_IDX _IDX1
-	#define ADC2_CHANNEL _CHANNEL5
+	#define ADC2_CHANNEL _CHANNEL2
 	
 	#define TIMER1_IDX _IDX2
 	#define TIMER2_IDX _IDX4
 	
-	#define IO_I2C_SCL	PortPin2IO(IO_PORT_B,IO_PIN_6)
-	#define IO_I2C_SDA	PortPin2IO(IO_PORT_B,IO_PIN_7)
-	#define I2C_SCL_CHANNEL 	DMA_STREAM_NON
-	#define I2C_SDA_CHANNEL 	DMA_STREAM_NON
+	#define IO_I2C_SCL			PortPin2IO(IO_PORT_B,IO_PIN_6)
+	#define IO_I2C_SDA			PortPin2IO(IO_PORT_B,IO_PIN_7)
+	#define I2C_SCL_DMA 		DMA_STREAM_NON
+	#define I2C_SCL_DMA_CH		_CHANNEL_NON
+	#define I2C_SDA_DMA 		DMA_STREAM_NON
+	#define I2C_SDA_DMA_CH		_CHANNEL_NON
 	#define IO_I2C_SCL2			PortPin2IO(IO_PORT_B,IO_PIN_10)
 	#define IO_I2C_SDA2			PortPin2IO(IO_PORT_B,IO_PIN_11)
-	#define I2C_SCL2_CHANNEL 	DMA1_STREAM2
-	#define I2C_SDA2_CHANNEL 	DMA1_STREAM3
+	#define I2C_SCL2_DMA 		DMA1_STREAM2
+	#define I2C_SCL2_DMA_CH		_CHANNEL_NON
+	#define I2C_SDA2_DMA 		DMA1_STREAM3
+	#define I2C_SDA2_DMA_CH		_CHANNEL_NON
 	
 	#define LCD_SPI_IDX	_IDX1
 	#define IO_SPI_SCK	PortPin2IO(IO_PORT_A,IO_PIN_5)
 	#define IO_SPI_MOSI	PortPin2IO(IO_PORT_A,IO_PIN_7)
-	#define IO_SPI_MISO	IO_PIN_NON
-	#define IO_SPI_CS	PortPin2IO(IO_PORT_A,IO_PIN_4) //NSS 片选
+	#define IO_SPI_MISO	PortPin2IO(IO_PORT_A,IO_PIN_6)
+	#define IO_SPI_CS	IO_PIN_NON//PortPin2IO(IO_PORT_A,IO_PIN_4) //NSS 片选
 	#define IO_SPI_DC	PortPin2IO(IO_PORT_B,IO_PIN_3) //命令/数据
 	#define IO_SPI_RST	PortPin2IO(IO_PORT_B,IO_PIN_2) //复位
 	#define IO_LCD_BLK  PortPin2IO(IO_PORT_B,IO_PIN_1) //
 	#define IO_FONT_CS	IO_PIN_NON
+	#define SPI_DMA_TX 		DMA_STREAM_NON
+	#define SPI_DMA_TX_CH	_CHANNEL_NON
+	#define SPI_DMA_RX		DMA_STREAM_NON
+	#define SPI_DMA_RX_CH	_CHANNEL_NON
+	
 	
 	#define IO_I2S_CK_MCLK	0      // 主时钟 通常不用 不输出
 	#define IO_I2S_CK_BCLK	PortPin2IO(IO_PORT_B,IO_PIN_13)      // 位时钟 BCLK
@@ -165,6 +184,7 @@
 	#define FLASH_SIZE	0x80000
 
 #elif defined(PY32F0)
+	#pragma comment(lib, "Hote_Py32F0.lib")
 	//引脚选择 并 转换成通用io编号
 	#define IO_TX	PortPin2IO(IO_PORT_B,IO_PIN_4)
 	#define IO_RX	PortPin2IO(IO_PORT_B,IO_PIN_5)
@@ -195,31 +215,39 @@
 
 	#define IO_I2C_SCL	PortPin2IO(IO_PORT_B,IO_PIN_3) //B3 A2
 	#define IO_I2C_SDA	PortPin2IO(IO_PORT_B,IO_PIN_6) //B6 B4
-	#define I2C_SCL_CHANNEL 	DMA_STREAM_NON
-	#define I2C_SDA_CHANNEL 	DMA_STREAM_NON
+	#define I2C_SCL_DMA 	DMA_STREAM_NON
+	#define I2C_SCL_DMA_CH		_CHANNEL_NON
+	#define I2C_SDA_DMA 	DMA_STREAM_NON
+	#define I2C_SDA_DMA_CH		_CHANNEL_NON
 	#define IO_I2C_SCL2			IO_PIN_NON //no I2C2
 	#define IO_I2C_SDA2			IO_PIN_NON //no I2C2
-	#define I2C_SCL2_CHANNEL 	DMA1_STREAM2
-	#define I2C_SDA2_CHANNEL 	DMA1_STREAM3
+	#define I2C_SCL2_DMA 	DMA1_STREAM2
+	#define I2C_SCL2_DMA_CH		_CHANNEL_NON
+	#define I2C_SDA2_DMA 	DMA1_STREAM3
+	#define I2C_SDA2_DMA_CH		_CHANNEL_NON
 	
 	#define LCD_SPI_IDX	_IDX1
 	#define IO_SPI_SCK	PortPin2IO(IO_PORT_B,IO_PIN_2) //B2 B0
 	#define IO_SPI_MOSI	PortPin2IO(IO_PORT_B,IO_PIN_7) //A7 B7 A0
-	#define IO_SPI_MISO	IO_PIN_NON	//C1 B6 A1
+	#define IO_SPI_MISO	PortPin2IO(IO_PORT_C,IO_PIN_1)//IO_PIN_NON	//C1 B6 A1
 	#define IO_SPI_CS	PortPin2IO(IO_PORT_A,IO_PIN_6) //NSS 片选 A6 B5
 	#define IO_SPI_DC	PortPin2IO(IO_PORT_A,IO_PIN_2) //命令/数据
 	#define IO_SPI_RST	PortPin2IO(IO_PORT_B,IO_PIN_0) //复位
 	#define IO_LCD_BLK  PortPin2IO(IO_PORT_B,IO_PIN_1) //
 	#define IO_FONT_CS	IO_PIN_NON
+	#define SPI_DMA_TX 		DMA_STREAM_NON
+	#define SPI_DMA_TX_CH	_CHANNEL_NON
+	#define SPI_DMA_RX		DMA_STREAM_NON
+	#define SPI_DMA_RX_CH	_CHANNEL_NON
 	
 	#define IO_I2S_CK_MCLK	0      // 主时钟 通常不用 不输出
-	#define IO_I2S_CK_BCLK	PortPin2IO(IO_PORT_B,IO_PIN_10)      // 位时钟 BCLK
-	#define IO_I2S_WS_LRCK	PortPin2IO(IO_PORT_B,IO_PIN_12)      // 帧时钟 LRCK
-	#define IO_I2S_SD_DOUT	PortPin2IO(IO_PORT_B,IO_PIN_15)      // 数据输出 DOUT
-	#define IO_I2S_EXT_DIN	PortPin2IO(IO_PORT_B,IO_PIN_14)      // 数据输入 DIN
+	#define IO_I2S_CK_BCLK	0      // 位时钟 BCLK
+	#define IO_I2S_WS_LRCK	0      // 帧时钟 LRCK
+	#define IO_I2S_SD_DOUT	0      // 数据输出 DOUT
+	#define IO_I2S_EXT_DIN	0      // 数据输入 DIN
 
 	// GND A6 A7 A5 C1 B7 B6 B3 B4 B5 3V3  QFN20
-	// GND C0 A4 A3 A2 A1 A0 B0 B1 B2 5V0  (未用A2 B0 B1)
+	// GND C0 A4 A3 A2 A1 A0 B0 B1 B2 5V0  (未用A2)
 	#define FLASH_SIZE 0x6000
 #endif
 
