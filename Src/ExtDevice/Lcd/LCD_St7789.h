@@ -248,3 +248,4 @@ static const unsigned char TestImage[3200]={ /* 0X00,0X10,0X28,0X00,0X28,0X00,0X
 
 
 #endif
+#endif

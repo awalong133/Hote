@@ -386,9 +386,9 @@ void LogUSB( char *fmt, ...);
 //============================SdCard==============================
 //Sdcard初始化；参数：通用io编号clk，通用io编号d0，通用io编号d1，通用io编号d2，通用io编号d3，通用io编号cmd;  返回：false/true
 bool SdCardInit(uint32_t clkIo, uint32_t d0Io, uint32_t d1Io, uint32_t d2Io, uint32_t d3Io, uint32_t cmdIo);
-//Sdcard加载； 参数：主目录(如："su:");  返回：false/true
+//Sdcard加载； 参数：根目录(如："1:");  返回：false/true  (AT32F4必须是 "1:")
 bool Sdcard_Mount(const char* dir);
-//Sdcard打开文件； 参数：文件名(如："su:/test1.txt");  返回：false/true
+//Sdcard打开文件； 参数：文件名(如："1:/test1.txt");  返回：false/true
 bool Sdcard_OpenFile(const char* fileName);
 //Sdcard连续写入文件； 参数：数据，大小;  返回：false/true
 bool Sdcard_WirteFile(const uint8_t* dat, uint16_t size);
@@ -396,10 +396,10 @@ bool Sdcard_WirteFile(const uint8_t* dat, uint16_t size);
 bool Sdcard_ReadFile(uint8_t* dat, uint16_t size);
 //Sdcard关闭文件； 参数：;  返回：false/true
 bool Sdcard_CloseFile();
-//Sdcard关闭文件； 参数：主目录;  返回：空闲空间
+//Sdcard关闭文件； 参数：指定目录;  返回：空闲空间  (大目录耗时很长)
 uint32_t Sdcard_GetFree(const char* dir);
-//Sdcard反加载； 参数：主目录
-void UnMount(const char* dir);
+//Sdcard反加载； 参数：根目录
+bool Sdcard_UnMount(const char* dir);
 
 
 

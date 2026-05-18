@@ -98,11 +98,11 @@ int main()
 	I2cInit(_IDX1, IO_I2C_SCL, IO_I2C_SDA, 0x00, 100000, MODE_MEM, I2C_SCL_DMA, I2C_SCL_DMA_CH, I2C_SDA_DMA, I2C_SDA_DMA_CH);
 	I2cInit(_IDX2, IO_I2C_SCL2, IO_I2C_SDA2, 0x00, 100000, MODE_MEM, I2C_SCL2_DMA, I2C_SCL2_DMA_CH, I2C_SDA2_DMA, I2C_SDA2_DMA_CH);
 
-	//初始化I2S3,16BIT 48K,NO DMA
-	I2sInit(_IDX3, IO_PIN_NON, IO_I2S_CK_BCLK, IO_I2S_WS_LRCK, IO_I2S_SD_DOUT, IO_I2S_EXT_DIN, I2S_DATAFORMAT_16BIT, I2S_AUDIOFREQ_48K
+	//初始化I2Sx,16BIT 48K,NO DMA
+	I2sInit(LCD_I2S_IDX, IO_PIN_NON, IO_I2S_CK_BCLK, IO_I2S_WS_LRCK, IO_I2S_SD_DOUT, IO_I2S_EXT_DIN, I2S_DATAFORMAT_16BIT, I2S_AUDIOFREQ_48K
 			, DMA_STREAM_NON, _CHANNEL_NON,DMA_STREAM_NON, _CHANNEL_NON, 0xfe);
-	//初始化UsbAudio，绑定I2S3 自动双向转发
-	UsbAudioInit(_IDX3); // UsbSerial和UsbAudio不能同时启用
+	//初始化UsbAudio，绑定I2Sx 自动双向转发
+	UsbAudioInit(LCD_I2S_IDX); // UsbSerial和UsbAudio不能同时启用
 
 	//计时器初始化; 参数：使用哪个tim，配置多少毫秒ms中断，回调函数;  返回：false/true
 	TimerInit(TIMER1_IDX, 1000, OnTimer);// 配置定时器 每隔1000ms中断
@@ -165,4 +165,34 @@ int main()
 void assert_failed(uint8_t *file, uint32_t line)
 {
 	Log("assert_failed %6dms  Tcount=%-4d\n",Hote_GetTick(),GetTimerCount(_IDX14));
+}
+
+//=======================================================Other===============================================================
+void SdCardTest()
+{
+	bool r=false; uint8_t dat[128]="abc123456";
+	SdCardInit(IO_SDCARD_CLK,IO_SDCARD_D0,IO_SDCARD_D1,IO_SDCARD_D2,IO_SDCARD_D3,IO_SDCARD_CMD);
+	
+	
+	r = Sdcard_Mount("1:");
+	printf("Sdcard_Mount  %s\n",r?"ok":"error");
+	
+	r = Sdcard_OpenFile("1:test.txt");
+	printf("Sdcard_OpenFile  %s  [%s]\n",r?"ok":"error","su:test.txt");
+	
+	r = Sdcard_WirteFile(dat,9);
+	printf("Sdcard_WirteFile  %s\n",r?"ok":"error");
+	
+	strcpy((char*)dat,"      ");
+	r = Sdcard_ReadFile(dat,9);
+	printf("Sdcard_ReadFile  %s  (%s)\n",r?"ok":"error",dat);
+	
+	r = Sdcard_CloseFile();
+	printf("Sdcard_CloseFile  %s\n",r?"ok":"error");
+	
+	//printf("sdcard free size=%d\n",Sdcard_GetFree("1:"));
+	
+	r = Sdcard_UnMount("1:");
+	printf("Sdcard_UnMount  %s\n",r?"ok":"error");
+
 }
