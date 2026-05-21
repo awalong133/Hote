@@ -94,9 +94,9 @@ enum IO_PIN PinIdx2Pin(uint8_t i);//{ return pow(2,i);}中断中调用pow之类的可能莫
 //系统初始化；
 void Hote_SystemInit();
 //延迟函数； 参数：毫秒ms
-void Hote_DelayMs(int ms);
+void Hote_DelayMs(uint32_t ms);
 //延迟函数； 参数：微秒us
-void Hote_DelayUs(int us);
+void Hote_DelayUs(uint32_t us);
 //获取系统主频，如：24MHz/72MHz/120MHz/240MHz
 uint32_t Hote_GetSystemCoreClock();
 //获取系统时间； 返回毫秒ms
@@ -390,6 +390,12 @@ bool SdCardInit(uint32_t clkIo, uint32_t d0Io, uint32_t d1Io, uint32_t d2Io, uin
 bool Sdcard_Mount(const char* dir);
 //Sdcard打开文件； 参数：文件名(如："1:/test1.txt");  返回：false/true
 bool Sdcard_OpenFile(const char* fileName);
+
+//Sdcard指定读写文件偏移位置； 参数：位置;  返回：false/true
+bool Sdcard_SeekFile(uint32_t n);
+//Sdcard指定读写文件偏移位置到最后 从而实现续写;  返回：false/true
+bool Sdcard_SeekFileBack();
+
 //Sdcard连续写入文件； 参数：数据，大小;  返回：false/true
 bool Sdcard_WirteFile(const uint8_t* dat, uint16_t size);
 //Sdcard连续读取文件； 参数：数据，大小;  返回：false/true

@@ -67,169 +67,150 @@ void LCD_SetWindow(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 void LCD_Init()
 {
 	GpioInit(IO_SPI_CS, IO_MODE_OUTPUT_PP, IO_PULLUP, HIGH, NULL);//CS默认不选中
-	GpioInit(IO_SPI_DC, IO_MODE_OUTPUT_PP, IO_PULLUP, HIGH, NULL);//DC
+	GpioInit(IO_SPI_DC, IO_MODE_OUTPUT_PP, IO_PULLUP, LOW, NULL);//DC
 	GpioInit(IO_SPI_RST, IO_MODE_OUTPUT_PP, IO_PULLUP, LOW, NULL);//RST
-	GpioInit(IO_LCD_BLK, IO_MODE_OUTPUT_PP, IO_PULLUP, HIGH, NULL);//BL
+	GpioInit(IO_LCD_BLK, IO_MODE_OUTPUT_PP, IO_PULLUP, LOW, NULL);//BL
 	Hote_DelayMs(100);
-    GpioWrite(IO_SPI_RST,HIGH);//复位
-	Hote_DelayMs(120);
 
 	//SPI初始化；参数：spi序号，通用io编号sclk，通用io编号mosi，通用io编号miso，用io编号cs，
 	//	主/从，DMA数据流TX(DMA_CHANNEL_NON=关闭)，DMA TX通道，DMA数据流RX，DMA RX通道;  返回：false/true
 	SpiInit(LCD_SPI_IDX, IO_SPI_SCK, IO_SPI_MOSI, IO_SPI_MISO, MODE_MASTER, SPI_DMA_TX, SPI_DMA_TX_CH, SPI_DMA_RX, SPI_DMA_RX_CH, 0xff);
+    Hote_DelayMs(10);
 
-		
-	// ----------- ST7789 240x240 初始化指令 -----------
+    // ----------------  严格复位时序 ----------------
+    GpioWrite(IO_SPI_RST,HIGH);//复位
+    Hote_DelayMs(120);  // 复位释放后必须≥120ms
+
+    // ---------------- ST7789 初始化指令 ----------------
     LCD_WriteCmd(0x11); // 唤醒
-	Hote_DelayMs(120);
+    Hote_DelayMs(120);     // 唤醒后必须≥120ms
 
     LCD_WriteCmd(0x36);
-    LCD_WriteData(0x00); // 方向 0x00 0x60 0xa0 0xc0
+    LCD_WriteData(0x00);
 
     LCD_WriteCmd(0x3A);
-    LCD_WriteData(0x55); // 16位色
+    LCD_WriteData(0x55);
 
     LCD_WriteCmd(0xB2);
     LCD_WriteData(0x0C);
-    LCD_WriteData(0x0C);
-    LCD_WriteData(0x00);
+	LCD_WriteData(0x0C);
+	LCD_WriteData(0x00);
     LCD_WriteData(0x33);
-    LCD_WriteData(0x33);
-
+	LCD_WriteData(0x33);
     LCD_WriteCmd(0xB7);
-    LCD_WriteData(0x35);
-
+	LCD_WriteData(0x35);
     LCD_WriteCmd(0xBB);
-    LCD_WriteData(0x19);
-
+	LCD_WriteData(0x19);
     LCD_WriteCmd(0xC0);
-    LCD_WriteData(0x2C);
-
+	LCD_WriteData(0x2C);
     LCD_WriteCmd(0xC2);
-    LCD_WriteData(0x01);
-
+	LCD_WriteData(0x01);
     LCD_WriteCmd(0xC3);
-    LCD_WriteData(0x12);
-
+	LCD_WriteData(0x12);
     LCD_WriteCmd(0xC4);
-    LCD_WriteData(0x20);
-
+	LCD_WriteData(0x20);
     LCD_WriteCmd(0xC6);
-    LCD_WriteData(0x0F);
-
+	LCD_WriteData(0x0F);
     LCD_WriteCmd(0xD0);
-    LCD_WriteData(0xA4);
-    LCD_WriteData(0xA1);
+	LCD_WriteData(0xA4);
+	LCD_WriteData(0xA1);
 
-//    LCD_WriteCmd(0xE0);//泛白
-//    LCD_WriteData(0xD0);
-//    LCD_WriteData(0x04);
-//    LCD_WriteData(0x0D);
-//    LCD_WriteData(0x11);
-//    LCD_WriteData(0x13);
-//    LCD_WriteData(0x2B);
-//    LCD_WriteData(0x3F);
-//    LCD_WriteData(0x48);
-//    LCD_WriteData(0x38);
-//    LCD_WriteData(0x15);
-//    LCD_WriteData(0x0F);
-//    LCD_WriteData(0x0E);
-//    LCD_WriteData(0x22);
-//    LCD_WriteData(0x36);
-
-//    LCD_WriteCmd(0xE1);//泛白
-//    LCD_WriteData(0xD0);
-//    LCD_WriteData(0x04);
-//    LCD_WriteData(0x0C);
-//    LCD_WriteData(0x11);
-//    LCD_WriteData(0x13);
-//    LCD_WriteData(0x2C);
-//    LCD_WriteData(0x3F);
-//    LCD_WriteData(0x48);
-//    LCD_WriteData(0x38);
-//    LCD_WriteData(0x14);
-//    LCD_WriteData(0x0E);
-//    LCD_WriteData(0x0E);
-//    LCD_WriteData(0x22);
-//    LCD_WriteData(0x36);
-
-	LCD_WriteCmd(0xE0);
-	LCD_WriteData(0xD0);
+    LCD_WriteCmd(0xE0);
+    LCD_WriteData(0xD0);
 	LCD_WriteData(0x04);
 	LCD_WriteData(0x0D);
-	LCD_WriteData(0x11);
+    LCD_WriteData(0x11);
 	LCD_WriteData(0x13);
 	LCD_WriteData(0x2B);
-	LCD_WriteData(0x3F);
+    LCD_WriteData(0x3F);
 	LCD_WriteData(0x54);
 	LCD_WriteData(0x4C);
-	LCD_WriteData(0x18);
+    LCD_WriteData(0x18);
 	LCD_WriteData(0x0D);
 	LCD_WriteData(0x0B);
-	LCD_WriteData(0x1F);
+    LCD_WriteData(0x1F);
 	LCD_WriteData(0x23);
 
-	LCD_WriteCmd(0xE1);
-	LCD_WriteData(0xD0);
+    LCD_WriteCmd(0xE1);
+    LCD_WriteData(0xD0);
 	LCD_WriteData(0x04);
 	LCD_WriteData(0x0C);
-	LCD_WriteData(0x11);
+    LCD_WriteData(0x11);
 	LCD_WriteData(0x13);
 	LCD_WriteData(0x2C);
-	LCD_WriteData(0x3F);
+    LCD_WriteData(0x3F);
 	LCD_WriteData(0x44);
 	LCD_WriteData(0x51);
-	LCD_WriteData(0x2F);
+    LCD_WriteData(0x2F);
 	LCD_WriteData(0x1F);
 	LCD_WriteData(0x1F);
-	LCD_WriteData(0x20);
+    LCD_WriteData(0x20);
 	LCD_WriteData(0x23);
 
     LCD_WriteCmd(0x21); // 反色关闭
-    LCD_WriteCmd(0x29); // 显示开启
-	Hote_DelayMs(10);
+    LCD_WriteCmd(0x29); // 先开显示
+    Hote_DelayMs(10);
+
+    GpioWrite(IO_LCD_BLK,HIGH);// 再开背光
+    Hote_DelayMs(10);
 }
 
 // -------------------------- 清屏 --------------------------
 void LCD_Clear(uint16_t color)
 {
-    uint8_t buf[2] = {color>>8, color&0xFF};
+    LCD_SetWindow(0, 0, LCD_W-1, LCD_H-1);
     uint32_t total = (uint32_t)LCD_W * LCD_H;
-
-    LCD_SetWindow(0,0,LCD_W-1,LCD_H-1);
-
-    for(uint32_t i=0;i<total;i++){
-        LCD_WriteMultiData(buf,2);
-		//LCD_WriteData16(color);
-    }
+    for(uint32_t i=0;i<total;i++)
+        LCD_WriteData16(color);
 }
 
 // -------------------------- 填充矩形 --------------------------
 void LCD_Fill(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color)
 {
-    uint8_t buf[2] = {color>>8, color&0xFF};
     uint32_t num = (uint32_t)(x2-x1+1)*(y2-y1+1);
 
     LCD_SetWindow(x1,y1,x2,y2);
     for(uint32_t i=0;i<num;i++){
-        LCD_WriteMultiData(buf,2);
+        LCD_WriteData16(color);
     }
 }
 // -------------------------- 指定区域填充颜色，X轴渐变色 -------------------------- 
 void LCD_Fill_X(uint16_t x1,uint16_t y1,uint16_t x2,uint16_t y2,uint16_t color1,uint16_t color2)
 {
-	uint16_t i,step=x2-x1;
-	for(i=x1;i<x2;i++){
-		LCD_Fill(i, y1, i+1, y2, GetStepCol(color1,color2,i-x1,step));
-	}
+    uint32_t total;
+    uint16_t x, color;
+    uint16_t step = x2 - x1;
+
+    LCD_SetWindow(x1, y1, x2-1, y2-1);
+
+    for(x=x1; x<x2; x++)
+    {
+        color = GetStepCol(color1, color2, x-x1, step);
+        total = y2 - y1;   // 一列的高度
+
+        while(total--)
+        {
+            LCD_WriteData16(color);
+        }
+    }
 }
 // -------------------------- 指定区域填充颜色，Y轴渐变色 -------------------------- 
 void LCD_Fill_Y(uint16_t x1,uint16_t y1,uint16_t x2,uint16_t y2,uint16_t color1,uint16_t color2)
 {
-	uint16_t i,step=y2-y1;
-	for(i=y1;i<y2;i++){
-		LCD_Fill(x1, i, x2, i+1, GetStepCol(color1,color2,i-y1,step));
-	}
+    uint16_t step = y2 - y1;
+    uint32_t w = x2 - x1;
+
+    LCD_SetWindow(x1, y1, x2-1, y2-1);
+
+    for(uint16_t y = y1; y < y2; y++)
+    {
+        uint16_t color = GetStepCol(color1, color2, y-y1, step);
+
+        for(uint32_t i=0; i<w; i++)
+        {
+            LCD_WriteData16(color);
+        }
+    }
 }
 
 //画点
