@@ -174,10 +174,10 @@ void SdCardTest()
 	SdCardInit(IO_SDCARD_CLK,IO_SDCARD_D0,IO_SDCARD_D1,IO_SDCARD_D2,IO_SDCARD_D3,IO_SDCARD_CMD);
 	
 	
-	r = Sdcard_Mount("1:");
+	r = Sdcard_Mount("0:");
 	printf("Sdcard_Mount  %s\n",r?"ok":"error");
 	
-	r = Sdcard_OpenFile("1:test.txt");
+	r = Sdcard_OpenFile("0:test.txt");
 	printf("Sdcard_OpenFile  %s  [%s]\n",r?"ok":"error","su:test.txt");
 	
 	r = Sdcard_WirteFile(dat,9);
@@ -192,7 +192,7 @@ void SdCardTest()
 	
 	//printf("sdcard free size=%d\n",Sdcard_GetFree("1:"));
 	
-	r = Sdcard_UnMount("1:");
+	r = Sdcard_UnMount("0:");
 	printf("Sdcard_UnMount  %s\n",r?"ok":"error");
 
 }
